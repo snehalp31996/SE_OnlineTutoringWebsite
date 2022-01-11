@@ -3,9 +3,6 @@
  * the data into the database when the user posts the form. The createTutorPost function also converts the image
  * uploaded to the server into a thumbnail to be sent to the database as well.
  *
- * @author Snehal Patil.
- * @date 12/11/2021
- * @since  0.0.1
  */
 
 const express = require('express');

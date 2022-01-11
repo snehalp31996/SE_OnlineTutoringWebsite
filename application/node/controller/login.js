@@ -4,9 +4,7 @@
  * data before then checking credentials. If the credentials are validated it stores a token in the database and
  * user data to be used in future instances of validation.
  *
- * @author Snehal Patil.
- * @date 11/17/2021
- * @since  0.0.1
+
  */
 
 const express = require('express');

@@ -3,9 +3,6 @@
  * This file contains the database object that is the connection to the database. Requiring this file will allow
  * access to the database object to make queries on the database.
  *
- * @author Cameron Robinson and Snehal Patil.
- * @date 11/17/2021
- * @since  0.0.1
  */
 
 const mysql = require("mysql");

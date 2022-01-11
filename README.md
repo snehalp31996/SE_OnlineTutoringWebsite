@@ -1,26 +1,5 @@
 # csc648 Repository
 
-## csc648team3.ddns.net
-<br>
-## Please when ready add your teams application URL or IP to the repository description. This will help with grading. Teams are expected to keep this value up to date.
-
-## Please do the following steps before completing Milestone 0.
-1. Change the name of the repository. All that needs to change is the NN to your respective team number. Team numbers whose value is less than 10, please pad with a 0. Ex team 1 is Team01 team 11 is Team11. Please make sure to also remove the username from the repository as well. Teams with incorrectly name repository will have points deducted from their milestone 0 grades.
-      - Please follow the naming convention assigned by your instructor.
-
-1. PLEASE REMOVE THE USERNAME FROM THE REPOSITORY NAME!!!
-
-2. Add ALL members of your team to this repository. For it to count, they must ACCEPT the invite.
-
-3. Fill out the table below
-
-
-| Student Name | Student Email | GitHub Username |
-|    :---:     |     :---:     |     :---:       |
-| Snehal Patil | spatil2@mail.sfsu.edu | snehalp396 |
-| Saptarshi Roy | sroy1@mail.sfsu.edu | sroy97 |
-| Daniel Elnaggar | delnaggar@mail.sfsu.edu | dandamanx23 |
-| Cameron Robinson | crobinson3@mail.sfsu.edu | ckRobinson |
-| James Pratt | jpratt1@mail.sfsu.edu | PrattJames1 |
-| Rollin Kung | rkung@mail.sfsu.edu | rkung117 |
-
+TutorPal aims to solve one of the largest roadblocks that SFSU students face - the inability to learn on demand, at their own pace, on subjects specific to SFSU. This web application is developed by SFSU students for SFSU students, meaning the developers have an understanding for what SFSU students need that other tutoring websites cannot satisfy.
+One of the largest advantages TutorPal has over competing tutoring websites is that it is tailored for SFSU students and tutors. The website is laid out so that students can filter by their specific class, discover topics that each class explores and search for tutors based on those topics. Other websites do not know the class listing and specific topics of each class in SFSU, whereas TutorPal does. TutorPal sports a user-friendly experience that allows users to browse tutors and classes before registering, so that they have a reason to register in the first place. The registration screen will not appear until after the user selects on “schedule appointment”, that way they will have already set aside a time and date for their session – which helps retainability. Communication is one of this web application’s strong suits, allowing tutors and students to send messages to each other through its interface. You are also able to upload videos and pictures of each tutoring session.
+Our startup team is excited to bring you TutorPal – an immersive web application that focuses on delivering the most concise interface between tutor and those seeking a tutor. We are a group of undergraduates and graduate students who strive to see TutorPal thrive because we share an understanding for those students who also seek assistance on various subjects specific to SFSU.

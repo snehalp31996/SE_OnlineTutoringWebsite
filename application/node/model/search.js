@@ -5,9 +5,6 @@
  * The search categories are dynamically rendered from the database's major table and the search method
  * creates a query using %LIKE and WHERE to return only the options that the user requested.
  *
- * @author Cameron Robinson.
- * @date 10/21/2021
- * @since  0.0.1
  */
 
 /*

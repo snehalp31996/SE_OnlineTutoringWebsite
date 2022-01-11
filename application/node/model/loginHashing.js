@@ -1,10 +1,6 @@
 /**
  *
  * This file is a set of helper functions used during the hashing of user password data and other cryptographic security.
- *
- * @author Cameron Robinson.
- * @date 11/17/2021
- * @since  0.0.1
  */
 
 const crypto = require('crypto');

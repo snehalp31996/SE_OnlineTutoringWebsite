@@ -7,10 +7,6 @@
  * callback. This will enable us to return to the previous page where we want to lazy register from and restore the
  * entered data but if the user migrates away from the registration/login page before completing the page we will
  * remove the cache from the session.
- *
- * @author Cameron Robinson.
- * @date 11/18/2021
- * @since  0.0.1
  */
 
 function getLazyRegistrationObject(referringPage, data) {

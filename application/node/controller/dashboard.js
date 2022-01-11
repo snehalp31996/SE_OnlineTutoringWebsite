@@ -5,9 +5,6 @@
  * request to continue and properly make the request to the database for all data required to be displayed on the
  * dashboard.
  *
- * @author Snehal Patil.
- * @date 11/17/2021
- * @since  0.0.1
  */
 
 const express = require('express');

@@ -5,9 +5,6 @@
  * Currently the file serves the vertical prototype and retrieves data from two model functions before rendering
  * the resulting page to the user from the ejs view.
  *
- * @author Cameron Robinson.
- * @date 10/21/2021
- * @since  0.0.1
  */
 
 const express = require('express')

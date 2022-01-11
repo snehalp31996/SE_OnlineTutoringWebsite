@@ -2,9 +2,6 @@
  * This file contains all of the paths and routes for the about pages. This is refactored out of the index file to
  * keep the structure more clean.
  *
- * @author Cameron Robinson.
- * @date 11/16/2021
- * @since  0.0.1
  */
 
 const express = require('express');

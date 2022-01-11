@@ -5,10 +5,6 @@
  * redirects them to the home page. Otherwise, it continues to the registration page. If user
  * is already registered and they attempt to register again, they are redirected to the login
  * page. Otherwise, it continues to the registration page.
- *
- * @author Rollin Kung and Cameron Robinson.
- * @date 12/10/2021
- * @since  0.0.1
  */
 
 const express = require('express');

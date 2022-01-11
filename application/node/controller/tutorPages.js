@@ -2,10 +2,6 @@
  *
  * This file is in charge of connecting to the database and retrieving the tutor data when
  * the user clicks on a link to the view a tutor page link.
- *
- * @author Cameron Robinson and Snehal Patil.
- * @date 11/16/2021
- * @since  0.0.1
  */
 
 const express = require('express');
