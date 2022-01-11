@@ -1,13 +1,3 @@
-/**
- * Main entry point into the application.
- *
- * This file is in charge of defining our required imports, setting up basic information for the app to run.
- * And then start the node server to listen for new connections.
- *
- * @author Cameron Robinson.
- * @date 10/21/2021
- * @since  0.0.1
- */
 
 const express = require('express')
 const path = require('path');

@@ -1,0 +1,155 @@
+<!-- @author  Snehal Patil.
+ @date 11/16/2021  -->
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK8RNJL01F"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VK8RNJL01F');
+    </script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Tutor Info</title>
+</head>
+<body>
+
+    
+    <%- include('partials/header') %>
+
+ 
+    <div class="section">
+        <div class="container pt-1">
+            <div class="content-section pt-5 mx-3">
+                <div class="about-text container pt-3 font-italic">
+                    <div class="row "><h1><u><strong> Tutor Details!</strong></u></h1></div>
+                    <div class="row pt-5 ">
+                        <h5><strong><%= tutorData['first_name'];%>  is offering tutoring for : </strong> 
+                        <em><u><%= tutorData['major_short_name'].toUpperCase() %> <%= tutorData['courseNumber']%> <%= tutorData['courseTitle']%></u></em></h5>
+                    </div>
+                    <div class="row py-4">
+                        <h3><u>Post Description:</u></h3><p><%= tutorData['post_details'];%></p>
+                    </div>
+                </div>
+                <div class="main container text-center pt-0">
+                    <form id="sendMessageForm" <% if(userLoggedIn === false) { %> action="/tutor/contactlogin" <% } %> method="post">
+                        
+                        <div class="container pt-0">
+                            <div class="row">
+                                <div class="col-12">
+                                    <b>
+                                        TutorPal does not handle communication between students and tutors. Make sure to include your contact information in your message.
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-9 pt-3">
+                                    <div class="form-floating">
+                                        <textarea class="form-control rounded-0" id="messageText" name="messageText" style="height: 150px" required autofocus><% if(typeof(messageText) !== 'undefined') { %> <%= messageText; %> <% } %></textarea>
+                                        <label for="messageText" >Write your message here.</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <% if(userLoggedIn === false) { %>
+                                        <% // This line adds a hidden field to the page to set what page to return to after logging in. This is a simple semi-hacky way of accomplishing this task.%>
+                                            <input type="hidden" id="referringTutorPage" class="form-control border=0  rounded-0" name="referringTutorPage" value="/tutor/<%= tutorData['first_name']; %>-<%= tutorData['last_name']; %>-t<%= tutorData['tutor_post_id']; %>">
+                                        <% // Add a button to show the login modal..%>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target= "#login-modal">Contact Me!</button>                        
+                                        <% } else { %>
+                                            <button type="submit" class="btn btn-primary">Contact Me!</button>                        
+                                        <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <input type="text" id="messageText" class="form-control me-3" name="messageText" <% if(typeof(messageText) !== 'undefined') { %> value="<%= messageText; %>" <% } %>> -->
+                    </form>
+                </div>    
+            </div>
+            <div class="image1-section pt-5">
+                    <div class="img-fluid rounded mx-auto d-block pt-5">
+                        <% if (image !== undefined) { %>
+                            <img class="search_image mx-5" src="data:image/jpeg;base64,  <%- image; %>">
+                        <% } else { %>
+                            <div class="search_image"></div>
+                        <% } %>
+                    </div>
+                    <div class="about-text pt-2">
+                        <h3 class="mx-5"><u><em><%= tutorData['first_name'];%> <%= tutorData['last_name'];%></em></u></h3>
+                    </div>
+            </div> 
+        </div>
+    </div>
+                 
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+
+<% /**
+    * If the user is now logged in we check if the page was just posted and the 
+    * messageSent value was passed by node. If so and the message was sent by
+    * the server we add the confirmation modal to the page and immediatly display
+    * it with the anonymous function below.
+    */
+%>
+<% if(userLoggedIn && typeof(messageSent) !== 'undefined' && messageSent === true) { %>
+    <div class="modal fade" id="confirmation-modal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modal-title" aria-hideen="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Congratulations!</h5>
+                    <button type="button" class="btn-close btn-lg" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Your message was sent!</p>
+                    <button class="btn-btn-primary btn-lg" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        (()=>{
+            let messageConfirmation = new bootstrap.Modal(document.getElementById('confirmation-modal'))
+            messageConfirmation.show()
+        })()
+    </script>
+<% /**
+    * Else if the user is not logged in we set up the login modal on the page 
+    * but do not display it until the user attempts to send the message.
+    */
+%>
+<% } else { %>
+    <div class="modal fade" id="login-modal"  data-bs-backdrop="static" tabindex="-2" aria-labelledby="modal-title" aria-hideen="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Sorry!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>To contact this tutor you must first log in. Would you like to log in now?</p>
+                    <button type="button" class=" btn-lg p-2" data-dismiss="modal" onclick="lazyLogin()">Log In</button>
+                    <button class=" btn-lg p-2" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function lazyLogin() {
+            document.getElementById("sendMessageForm").submit()
+        }
+    </script>
+<% } %>
+</html>

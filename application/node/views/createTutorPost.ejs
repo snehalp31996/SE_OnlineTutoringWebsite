@@ -1,0 +1,212 @@
+<!-- @author  Snehal Patil.
+ @date 11/28/2021  -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK8RNJL01F"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VK8RNJL01F');
+    </script>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/mystyle.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+
+    <title>Tutor Post Page</title>
+  </head>
+  <body>
+
+    <%- include('partials/header') %>
+    
+    
+    <section class="container">
+      <div class="row content d-flex justify-content-center  mt-2">
+        <div class="col-md-6 mt-0">
+          <h3 class="h3 mb-4 text-center ">Create your Post Here!</h3>
+          <div class="signup-form text-center box shadow bg-white p-4 ">
+            <form id="submitPostForm" <% if(userLoggedIn === false) { %> action="/createTutorPost/loginFirst" <% } else { %> action="/createTutorPost" <% } %> method="post" enctype="multipart/form-data" class="mb-3">
+              <div class="row">
+                
+                <div class="form-floating mb-3 col-md-6">
+                  <select class="form-select" id="majorShortName" name="majorShortName" aria-label="Floating label select example" onchange="updateCoursesBasedOnMajor(value)" required autofocus>
+                    <option value="">Select One</option>
+                    <% for(let i = 0; i < searchCategoriesShortName.length; i++) { %>
+                      <% if(searchCategoriesShortName[i] !== "undc") { %>
+                        <option value="<%= searchCategoriesShortName[i]; %>" <% if(lazyRegPostData && searchCategoriesShortName[i] === lazyRegPostData['majorShortName']) { %> selected <% } %> ><%= searchCategoriesLongName[i];%></option>
+                      <% } %>
+                    <%}%>
+                  </select>
+                  <label for="majorShortName">Filter Courses by major<span class="text-danger">*</span></label>
+                  
+                </div>
+                <div class="form-floating mb-3 col-md-6">
+                  <select class="form-select" id="courseSelect" name="courseNumber" aria-label="Floating label select example" required autofocus>
+                    <option value="">Select One</option>
+                    <% if(lazyRegPostData === null || lazyRegPostData['majorShortName'] === "") { %>
+                      <% for (let major in courseData) { %>
+                        <% let majorArray = courseData[major] %>
+                        <% for(let course in majorArray) { %>
+                        <option value="<%= majorArray[course]['courseNumber']; %>" <% if(lazyRegPostData && majorArray[course]['courseNumber'].toString() === lazyRegPostData['courseNumber']) {%> selected <% } %>><%= majorArray[course]['courseLabel'] %></option>
+                        <% } %>
+                      <% } %> 
+                    <% } else { %>
+                      <% let majorArray = courseData[lazyRegPostData['majorShortName']] %>
+                      <% for(let course in majorArray) { %>
+                      <option value="<%= majorArray[course]['courseNumber']; %>" <%if(lazyRegPostData && majorArray[course]['courseNumber'].toString() === lazyRegPostData['courseNumber']) { %> selected <% } %>><%= majorArray[course]['courseLabel'] %></option>
+                      <% } %>
+                    <% } %>
+                  </select>
+                  <label for="courseSelect">Course<span class="text-danger">*</span></label>
+                </div>
+                <div class="col-12 pt-3">
+                  <b>
+                    Make sure to include information about your tutoring credentials and when you are available for tutoring in your post description.
+                  </b>
+                </div>
+                <div class="form-floating mb-3">
+                  <textarea class="form-control rounded-0" id="postDetails" name="postDetails" style="height: 150px" required autofocus><% if(lazyRegPostData) { %><%=lazyRegPostData['postDetails']%><% } %></textarea>
+                  <label for="postDetails" >Describe yourself<span class="text-danger">*</span></label>
+                </div>
+               
+                <div class="mb-5">
+                  <label id="uploadButton" for="postImage" class="btn btn-primary"><% if(lazyRegImageData !== null){%>Change Profile Image<% } else { %>Upload your Profile Image<% } %></label><span class="text-danger">*</span>
+                    <input style="visibility:hidden;" class="form-control" accept="image/*" type="file" id="postImage" name="postImage" onchange="preview()" <% if(lazyRegImageData !== null){ %> value="Image loaded." src="data:image/png;base64,  <%= lazyRegImageData %>" <% } %>  <% if(lazyRegImageData === null){ %> required <% } %> autofocus>
+                    <!-- <button onclick="clearImage()" class="btn btn-primary mt-3">Click me</button> -->
+                </div>
+                <img id="frame" class="img-fluid" <% if(lazyRegImageData !== null){%> src="data:image/png;base64,  <%= lazyRegImageData %>" <% } else { %> src="" <% } %>/>
+            
+                <script>
+                  function preview() {
+                      document.getElementById("uploadButton").innerHTML = "Change Profile Image"
+                      frame.src = URL.createObjectURL(event.target.files[0]);
+                    }
+                    // REMOVED clear image button and function as it is not really needed if image is mandatory.
+                    // function clearImage() {
+                    //     document.getElementById('formFile').value = null;
+                    //     frame.src = "";
+                    // }
+                </script>
+
+                <div class="mb-3 col-md-8">
+                  <input type="checkbox" class="form-check-input" id="terms_and_conditions" required>
+                  <label class="form-check-label" for="terms_and_conditions">I agree to the site's <a href="#">terms and conditions</a><span class="text-danger">*</span></label>
+                </div>
+                <div class="mb-3 col-md-4">
+                  <% // Add a button to show the login modal or the actual submit to create post if the user is logged in.%>
+                  <% if(userLoggedIn === false) { %>
+                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target= "#login-modal">Create Post</button>                       
+                    <% } else { %>
+                        <button type="submit" class="btn btn-primary float-end">Create Post</button>                       
+                    <% } %>
+                </div>
+<!--                <div class="text-center mt-3 text-secondary">-->
+<!--                  Already have an account? <a href="/login">Login</a>-->
+<!--                </div>-->
+              </div>
+            
+            </form>
+  
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script>
+
+      // Use EJS and json to load all of the course data into a variable directly.
+      // set our course select dropdown variable here to be loaded by the 
+      // init function below.
+      let dataForAllCourses = <%- JSON.stringify(courseData) %>;
+      let courseSelect = null;
+
+      // When a major is selected from the dropdown this function is called.
+      function updateCoursesBasedOnMajor(selectedMajor) {
+        
+        // Remove all other items from the courses, leaving this at 1 will
+        // keep the default "select one" option in the list while removing
+        // the rest.
+        courseSelect.length = 1;
+
+        if(selectedMajor in dataForAllCourses) {
+
+          appendCoursesFromMajorToSelect(selectedMajor)
+        }
+        else if(selectedMajor === "") {
+
+          // Loop through every major in the dictionary and append all 
+          // of the classes to the dropdown.
+          for(let major in dataForAllCourses) {
+
+            appendCoursesFromMajorToSelect(major)
+          }
+        }
+      }
+
+      function appendCoursesFromMajorToSelect(selectedMajor) {
+
+        let majorData = dataForAllCourses[selectedMajor];
+        for(let course of majorData) {
+        
+          let option = document.createElement('option');
+          option.value = course['courseNumber'];
+          option.innerHTML = course['courseLabel'];
+          courseSelect.appendChild(option);
+        }
+      }
+
+      (()=>{
+        courseSelect = document.getElementById('courseSelect');
+      })()
+    </script>
+  </body>
+<% /**
+    * If the user is not logged in we set up the login modal on the page 
+    * but do not display it until the user attempts to send the message.
+    */
+%>
+<% if(userLoggedIn === false) { %>
+  <div class="modal fade" id="login-modal"  data-bs-backdrop="static" tabindex="-2" aria-labelledby="modal-title" aria-hideen="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modal-title">Sorry!</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <p>To offer tutoring services must first create and account or log in.</p>
+                  <p>Would you like to do that in now?</p>
+                  <button type="button" class="btn-btn-secondary p-2" data-dismiss="modal" onclick="lazyLogin()">Log In</button>
+                  <button class="btn-btn-primary p-2" data-bs-dismiss="modal">No</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <script>
+      function lazyLogin() {
+          document.getElementById("submitPostForm").submit()
+      }
+  </script>
+<% } %>
+</html>
+
+
+
+
+
+

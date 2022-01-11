@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK8RNJL01F"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VK8RNJL01F');
+    </script>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/mystyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <title>TutorPal Landing Page</title>
+    <style>
+        body {
+            padding-bottom: 20px;
+        }
+        .jumbotron {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<%- include('partials/header') %>
+
+
+<div class="container text-center px-4 pt-0">
+    <div class="row gx-5 pt-0">
+        <div class="col">
+            <div class="p-1 border bg-light">
+                <div class="p-5 mb-4 bg-light rounded-3">
+                    <div class="container-fluid py-5">
+                        <h1 class="display-1">TutorPal</h1>
+                        <p class="col-md-12 fs-4">A tutor website made by SFSU students, for SFSU students.</p>
+                        <button class="btn btn-primary btn-lg" onclick="window.location.href='/search?category=&search=';"  type="button">Start Browsing!</button>
+                        <button class="btn btn-primary btn-lg" onclick="window.location.href='/createTutorPost'"  type="button">Become a Tutor!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="p-3 border bg-light">
+                <p class="col-md-12 fs-4">Recently Added Tutors</p>
+                <div id="result">
+                    <div class="flex-search-results ">
+
+                        <% for(let i = 0; i < searchResult.length; i++) { %>
+                            <div class="flex-search-item-no-outline">
+                                <% item = searchResult[i];%>
+                                <div class="">
+                                    <% if (images[i] !== undefined) { %>
+                                    <a href="/tutor/<%=item['first_name']; %>-<%= item['last_name']; %>-t<%= item['tutor_post_id']; %>"><img class="search_image_sm" src="data:image/jpeg;base64,  <%- images[i]; %>"></a>
+
+                                    <% } else { %>
+                                    <a href="/tutor/<%=item['first_name']; %>-<%= item['last_name']; %>-t<%= item['tutor_post_id']; %>"><div class="search_image_sm"></div></a>
+                                    <% } %>
+                                </div>
+
+                                <div class="col mt-0 px-2">
+                                    <h4 class="text-left text-success"><u><%= item['first_name']; %> <%= item['last_name']; %> </u></h4>
+                                    <p  class="text-left">Is offering tutoring for:<br><%= item['major_short_name'].toUpperCase() %> <%= item['courseNumber']%> <%= item['courseTitle']%>%></p>
+                                </div>
+
+                                <div class="flex-grow-0 pt-3">
+                                    <!-- <button class="btn btn-primary btn-lg border=0 rounded-2 " type="button"> <a href="/tutor/<%=item['first_name'];%>-<%= item['last_name'];%>-t<%= item['tutor_id'];%>">Contact!</button></a></button> -->
+                                    <a class="btn btn-primary border-0 rounded-2" href="/tutor/<%=item['first_name'];%>-<%= item['last_name'];%>-t<%= item['tutor_post_id'];%>" role="button">Contact!</a>
+                                </div>
+
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+</body>
+
+<% /**
+    * If the user is now logged in we check if the page was just posted and the 
+    * postCreated value was passed by node. If so the post is now in the database
+    * and awaiting admin approval. We setup the confirmation modal and immediatly 
+    * display it with the anonymous function below.
+    */
+%>
+<% if(userLoggedIn && typeof(tutoringPostCreated) !== 'undefined' && tutoringPostCreated === true) { %>
+  <div class="modal fade" id="confirmation-modal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modal-title" aria-hideen="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modal-title">Congratulations!</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <p>Your post has been created!</p>
+                  <p>Your submission will be reviewed by our admins before being visible on the website. This usually takes around 24 hours.</p>
+                  <button class="btn-btn-primary p-2" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <script>
+      (()=>{
+          let messageConfirmation = new bootstrap.Modal(document.getElementById('confirmation-modal'))
+          messageConfirmation.show()
+      })()
+  </script>
+<% } %>
+</html>

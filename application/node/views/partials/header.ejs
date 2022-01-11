@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container-fluid">
+        <div id="LogoDiv" class="nav-item col-1"><a class="navbar-brand " href="/"><img src="/img/TutorPal.png"
+                    alt="..." height="57"></a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse col-11" id="navbarSupportedContent">
+            <div class="navbar-nav justify-content-start col-3 col-md-4">
+                <div id="AboutDiv" class="nav-item"><a class="nav-link active" aria-current="page" href="/about">
+                        <h5 class="p-2">About</h5>
+                    </a></div>
+                <div id="PostDiv" class="nav-item col-8">
+                    <a class="nav-link  active" aria-current="page"
+                        href="/createTutorPost">
+                        <h5 class="p-2">Offer Tutoring</h5>
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-nav text-center">
+                <form action="/search" class="d-flex my-2">
+                    <select class="mdb-select md-form col-md-3 col-lg-4" name="category" onchange="this.form.submit()">
+                        <option value="">Major</option>
+                        <% for(let i=0; i < searchCategoriesShortName.length; i++) { %>
+                            <option value="<%= searchCategoriesShortName[i];%>" <% if(typeof(category) !=='undefined' ) { %>
+                            <% if(category===searchCategoriesShortName[i]) { %>
+                                    selected
+                                <% } %>
+                            <% } %>><%= searchCategoriesLongName[i]; %>
+                            </option>
+                        <% } %>
+                    </select>
+                    <input class="form-control me-2" id="search" pattern="{0,40}" name="search" <% if(typeof(searchTerm)
+                        !=='undefined' ) { %>
+                            value="<%= searchTerm ;%>"
+                    <% } else { %>
+                        value=""
+                    <% } %>
+                        type="search" placeholder="CSC 648" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="navbar-nav col justify-content-end">
+                <% if(userLoggedIn===false) { %>
+                    <div id="Signup" class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/register">
+                            <h5 class="p-2">SignUp</h5>
+                        </a>
+                    </div>
+                    <div id="login" class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/login">
+                            <h5 class="p-2">LogIn</h5>
+                        </a>
+                    </div>
+                <% } else { %>
+                    <div class="h2 mb-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            <path fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                        </svg>
+                    </div>
+                    <div id="loggedInDropdown" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Hi <%= userFirstName; %>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>
+<br>
+    <div style="text-align:center;"><strong> Software Engineering Project CSC 648-848, Fall 2021 For Demonstration Only</strong></div>
+    <div style="text-align:center;"><strong> Fall 2021 | Section 3 | Team 3</strong></div>
+<br>

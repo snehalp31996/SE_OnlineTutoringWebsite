@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK8RNJL01F"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VK8RNJL01F');
+    </script>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/mystyle.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+
+    <title>Login Page</title>
+  </head>
+  <body>
+
+    <%- include('partials/header') %>
+
+    <section class="container">
+      <div class="row content d-flex justify-content-center text-left mt-2">
+
+        <% if(typeof(noResultsFound) !== 'undefined' && noResultsFound) { %>
+          <h3 class="text-center p-4">
+            No results found for this search. Displaying all items.
+          </h3>
+        <% } %>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-lg justify-content-end">
+                <% if (pageNum > 0) { %>
+                  <li class="page-item"><a class="page-link" href="/search?category=<%= category %>&search=<%= searchTerm %>&page=<%=pageNum%>">Previous</a></li>
+                <% } %>
+                <% if(pageNum === 0 && numPages > pageNum) { %>
+                  <li class="page-item"><a class="page-link" href="/search?category=<%= category %>&search=<%= searchTerm %>&page=2">Next</a></li>
+                <% } else if(numPages > pageNum + 1) { %>
+                  <li class="page-item"><a class="page-link" href="/search?category=<%= category %>&search=<%= searchTerm %>&page=<%=pageNum+2%>">Next</a></li>
+                <% } %>
+            </ul>
+            <%= lowerBound %> out of <%= upperBound %> total <%= totalNum %>
+        </nav>
+        <div class="p-3 border bg-light">
+          <div id="result">
+            <div class="flex-search-results container">
+              <% for(let i = 0; i < searchResult.length; i++) { %>
+                <div class="flex-search-item box shadow bg-light p-4 row">
+                  <% item = searchResult[i];%>
+                    <div class="pe-4 ps-2 col d-flex align-items-center">
+                      <% if (images[i] !== undefined) { %>
+                        <div>
+                          <a href="/tutor/<%=item['first_name']; %>-<%= item['last_name']; %>-t<%= item['tutor_post_id']; %>"><img class="img-fluid img-thumbnail" src="data:image/jpeg;base64,  <%- images[i]; %>"></a>
+                        </div>
+                      <% } else { %>
+                        <a href="/tutor/<%=item['first_name']; %>-<%= item['last_name']; %>-t<%= item['tutor_post_id']; %>">
+                          <div class="search_image">
+                          </div>
+                        </a>
+                      <% } %>
+                    </div>
+                    <div class="col-md-7 mt-0 col container">
+                      <div class="row">
+                        <a href="/tutor/<%=item['first_name'];%>-<%= item['last_name'];%>-t<%= item['tutor_post_id'];%>"><h1><%= item['first_name']; %> <%= item['last_name']; %></h1></a>
+                      </div>
+                      <div class="row">
+                        <hr>
+                      </div>
+                      <div class="row ps-4">
+                        <h5>Course: <%= item['major_short_name'].toUpperCase();%> <%= item['courseNumber'];%>  <%= item['courseTitle'];%></h5>
+                      </div>
+                      <div class="row px-4 py-2">
+                        <p><%= item['post_details'];%> <%if(item['post_details_previewed'] === true) { %><b>. . .</b> <% } %></p>
+                      </div>
+                      <div class="row px-4 text-end">
+                        <p>Post Created: <%= item['post_created'];%></p>
+                      </div>
+                    </div> 
+                    <div class="col-md-3 mt-0 col d-flex align-items-center">
+                      <div class="d-grid gap-3 mx-auto">
+                        <a class="btn btn-primary btn-lg border=0 rounded-2" href="/tutor/<%=item['first_name'];%>-<%= item['last_name'];%>-t<%= item['tutor_post_id'];%>" role="button">Contact!</a>
+                      </div>
+                    </div>
+                    
+                 </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+          <%- include('partials/footer') %>
+
+      </div>
+    </section>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+  </body>
+</html>
