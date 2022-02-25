@@ -7,7 +7,7 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. Server URL or IP: <b>csc648team3.ddns.net</b>
+1. Server URL or IP: <b>https://sfsu-fa21-csc648t3.net/</b>
 2. SSH username: <b>ubuntu</b>
 3. SSH password or key: <b>sshKey.pem in credentials directory.</b>
 4. Database URL or IP and port used: <b>LocalHost only, use ssh tunneling. Default port: 3306.</b>
